@@ -14,4 +14,8 @@ class Poblacion extends Model
         'descripcion',
         'estado'
     ];
+
+    public function instituciones() {
+        return $this->belongsToMany('App\Models\Institucion');
+    }
 }

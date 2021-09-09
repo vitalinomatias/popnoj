@@ -13,4 +13,8 @@ class Tipo extends Model
         'tipo',
         'estado'
     ];
+
+    public function instituciones() {
+        return $this->hasMany('App\Models\institucion');
+    }
 }
