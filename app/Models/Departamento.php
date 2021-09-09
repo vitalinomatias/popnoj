@@ -19,4 +19,10 @@ class Departamento extends Model
     public function pais() {
         return $this->belongsTo('App\Models\Pais');   
     }
+
+    // Relacion uno a muchos
+    public function municipios() {
+        return $this->hasMany('App\Models\Municipio');
+    }
+
 }

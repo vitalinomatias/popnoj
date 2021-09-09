@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departamento;
 use App\Models\Municipio;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,8 @@ class MunicipioController extends Controller
      */
     public function index()
     {
-        //
+        $municipios = Municipio::where('estado', 1)->get();
+        return view('municipios.index', compact('municipios'));
     }
 
     /**
@@ -24,7 +26,8 @@ class MunicipioController extends Controller
      */
     public function create()
     {
-        //
+        $departamentos = Departamento::where('estado', 1)->get();
+        return view('municipios.create', compact('departamentos'));
     }
 
     /**
@@ -35,7 +38,13 @@ class MunicipioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $municipio = Municipio::create([
+            'municipio' => request('municipio'),
+            'estado' => 1,
+            'departamento' => request('departamento')
+        ]);
+        
+        return redirect()->route('municipios.index')->with('status', 'Municipio creado con éxito');
     }
 
     /**
@@ -46,7 +55,7 @@ class MunicipioController extends Controller
      */
     public function show(Municipio $municipio)
     {
-        //
+        return view('municipios.show');
     }
 
     /**
@@ -57,7 +66,8 @@ class MunicipioController extends Controller
      */
     public function edit(Municipio $municipio)
     {
-        //
+        $departamentos = Departamento::where('estado', 1)->get();
+        return view('municipios.edit', compact('municipio','departamentos'));
     }
 
     /**
@@ -69,7 +79,12 @@ class MunicipioController extends Controller
      */
     public function update(Request $request, Municipio $municipio)
     {
-        //
+        $municipio->update([
+            'municipio' => request('municipio'),
+            'departamento' => request('departamento')
+        ]);
+        
+        return redirect()->route('municipios.index')->with('status', 'Municipio actualizado con éxito');
     }
 
     /**
@@ -80,6 +95,10 @@ class MunicipioController extends Controller
      */
     public function destroy(Municipio $municipio)
     {
-        //
+        $municipio->update([
+            'estado' => 0
+        ]);
+
+        return back()->with('status', 'Municipio eliminado con éxito');
     }
 }
