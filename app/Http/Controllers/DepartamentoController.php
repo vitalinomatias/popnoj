@@ -83,7 +83,7 @@ class DepartamentoController extends Controller
     public function update(Request $request, Departamento $departamento)
     {
         $departamento->update([
-            'name' => request('departamento'),
+            'departamento' => request('departamento'),
             'estado' =>1,
             'pais' => request('pais')
         ]);
