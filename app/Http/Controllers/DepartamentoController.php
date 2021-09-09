@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departamento;
+use App\Models\Pais;
 use Illuminate\Http\Request;
+use Illuminate\View\ViewName;
 
 class DepartamentoController extends Controller
 {
@@ -14,7 +16,9 @@ class DepartamentoController extends Controller
      */
     public function index()
     {
-        //
+        $departamentos = Departamento::where('estado',1)->get();
+        
+        return view('departamentos.index', compact('departamentos'));
     }
 
     /**
@@ -24,7 +28,8 @@ class DepartamentoController extends Controller
      */
     public function create()
     {
-        //
+        $paises = Pais::where('estado', 1)->get();
+        return view('departamentos.create', compact('paises'));
     }
 
     /**
@@ -35,7 +40,14 @@ class DepartamentoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //guardar los datos
+        $departamento = Departamento::create([
+            'departamento' => request('departamento'),
+            'estado' => 1,
+            'pais' => request('pais')
+        ]);
+        
+        return redirect()->route('departamentos.index')->with('status', 'Departamento creado con éxito');
     }
 
     /**
@@ -45,8 +57,8 @@ class DepartamentoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Departamento $departamento)
-    {
-        //
+    { 
+        return view('departamentos.show');
     }
 
     /**
@@ -57,7 +69,8 @@ class DepartamentoController extends Controller
      */
     public function edit(Departamento $departamento)
     {
-        //
+        $paises = Pais::where('estado', 1)->get();
+        return view('departamentos.edit', compact('departamento','paises'));
     }
 
     /**
@@ -69,7 +82,13 @@ class DepartamentoController extends Controller
      */
     public function update(Request $request, Departamento $departamento)
     {
-        //
+        $departamento->update([
+            'name' => request('departamento'),
+            'estado' =>1,
+            'pais' => request('pais')
+        ]);
+        
+        return redirect()->route('departamentos.index')->with('status', 'Departamento actualizado con éxito');
     }
 
     /**
@@ -80,6 +99,10 @@ class DepartamentoController extends Controller
      */
     public function destroy(Departamento $departamento)
     {
-        //
+        $departamento->update([
+            'estado' => 0
+        ]);
+
+        return back()->with('status', 'Departamento eliminado con éxito');
     }
 }

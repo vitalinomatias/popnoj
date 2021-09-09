@@ -13,4 +13,9 @@ class Pais extends Model
         'name',
         'estado'
     ];
+
+    // Relacion uno a muchos
+    public function departamentos() {
+        return $this->hasMany('App\Models\Departamento');
+    }
 }
