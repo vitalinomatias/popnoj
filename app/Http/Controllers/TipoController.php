@@ -14,7 +14,8 @@ class TipoController extends Controller
      */
     public function index()
     {
-        //
+        $tipos = Tipo::where('estado', 1)->get();
+        return view('tipos.index', compact('tipos'));
     }
 
     /**
@@ -24,7 +25,7 @@ class TipoController extends Controller
      */
     public function create()
     {
-        //
+        return view('tipos.create');
     }
 
     /**
@@ -35,7 +36,12 @@ class TipoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $tipo = Tipo::create([
+            'tipo' =>request('tipo'),
+            'estado' =>1
+        ]);
+        
+        return redirect()->route('tipos.index')->with('status', 'Tipo de institución creado con éxito');
     }
 
     /**
@@ -46,7 +52,7 @@ class TipoController extends Controller
      */
     public function show(Tipo $tipo)
     {
-        //
+        return view('tipos.show');
     }
 
     /**
@@ -57,7 +63,7 @@ class TipoController extends Controller
      */
     public function edit(Tipo $tipo)
     {
-        //
+        return view('tipos.edit',compact('tipo'));
     }
 
     /**
@@ -69,7 +75,12 @@ class TipoController extends Controller
      */
     public function update(Request $request, Tipo $tipo)
     {
-        //
+        $tipo->update([
+            'tipo' => request('tipo'),
+
+        ]);
+        
+        return redirect()->route('tipos.index')->with('status', 'Tipo de institución actualizado con éxito');
     }
 
     /**
@@ -80,6 +91,10 @@ class TipoController extends Controller
      */
     public function destroy(Tipo $tipo)
     {
-        //
+        $tipo->update([
+            'estado' => 0
+        ]);
+
+        return back()->with('status', 'Tipo de institución eliminado con éxito');
     }
 }

@@ -18,6 +18,7 @@ class CreateEjesTable extends Migration
 
             $table->string('eje');
             $table->text('descripcion');
+            $table->integer('estado');
             
             $table->timestamps();
         });

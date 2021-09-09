@@ -14,7 +14,8 @@ class PoblacionController extends Controller
      */
     public function index()
     {
-        //
+        $poblaciones = Poblacion::where('estado', 1)->get();
+        return view('poblaciones.index', compact('poblaciones'));
     }
 
     /**
@@ -24,7 +25,7 @@ class PoblacionController extends Controller
      */
     public function create()
     {
-        //
+        return view('poblaciones.create');
     }
 
     /**
@@ -35,7 +36,13 @@ class PoblacionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $poblacion = Poblacion::create([
+            'poblacion' =>request('poblacion'),
+            'descripcion' => request('descripcion'),
+            'estado' => 1
+        ]);
+        
+        return redirect()->route('poblaciones.index')->with('status', 'Población creado con éxito');
     }
 
     /**
@@ -46,7 +53,7 @@ class PoblacionController extends Controller
      */
     public function show(Poblacion $poblacion)
     {
-        //
+        return view('poblaciones.show');
     }
 
     /**
@@ -55,9 +62,10 @@ class PoblacionController extends Controller
      * @param  \App\Models\Poblacion  $poblacion
      * @return \Illuminate\Http\Response
      */
-    public function edit(Poblacion $poblacion)
+    public function edit(Poblacion $poblacione)
     {
-        //
+        // dd($poblacione->descripcion);
+        return view('poblaciones.edit',compact('poblacione'));
     }
 
     /**
@@ -67,9 +75,15 @@ class PoblacionController extends Controller
      * @param  \App\Models\Poblacion  $poblacion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Poblacion $poblacion)
+    public function update(Request $request, Poblacion $poblacione)
     {
-        //
+        $poblacione->update([
+            'poblacion' => request('poblacion'),
+            'descripcion' => request('descripcion')
+
+        ]);
+        
+        return redirect()->route('poblaciones.index')->with('status', 'Población actualizada con éxito');
     }
 
     /**
@@ -78,8 +92,12 @@ class PoblacionController extends Controller
      * @param  \App\Models\Poblacion  $poblacion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Poblacion $poblacion)
+    public function destroy(Poblacion $poblacione)
     {
-        //
+        $poblacione->update([
+            'estado' => 0
+        ]);
+
+        return back()->with('status', 'Población eliminada con éxito');
     }
 }

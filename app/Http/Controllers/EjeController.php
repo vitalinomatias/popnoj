@@ -14,7 +14,9 @@ class EjeController extends Controller
      */
     public function index()
     {
-        //
+        $ejes = Eje::where('estado',1)->get();
+        // dd($ejes);
+        return view('ejes.index',compact('ejes'));
     }
 
     /**
@@ -24,7 +26,7 @@ class EjeController extends Controller
      */
     public function create()
     {
-        //
+        return view('ejes.create');
     }
 
     /**
@@ -35,7 +37,13 @@ class EjeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $eje = Eje::create([
+            'eje' =>request('eje'),
+            'descripcion' => request('descripcion'),
+            'estado' => 1
+        ]);
+        
+        return redirect()->route('ejes.index')->with('status', 'Eje de trabajo creado con éxito');
     }
 
     /**
@@ -46,7 +54,7 @@ class EjeController extends Controller
      */
     public function show(Eje $eje)
     {
-        //
+        return view('ejes.show');
     }
 
     /**
@@ -57,7 +65,7 @@ class EjeController extends Controller
      */
     public function edit(Eje $eje)
     {
-        //
+        return view('ejes.edit',compact('eje'));
     }
 
     /**
@@ -69,7 +77,13 @@ class EjeController extends Controller
      */
     public function update(Request $request, Eje $eje)
     {
-        //
+        $eje->update([
+            'eje' => request('eje'),
+            'descripcion' => request('descripcion')
+
+        ]);
+        
+        return redirect()->route('ejes.index')->with('status', 'Eje de trabajo actualizada con éxito');
     }
 
     /**
@@ -80,6 +94,10 @@ class EjeController extends Controller
      */
     public function destroy(Eje $eje)
     {
-        //
+        $eje->update([
+            'estado' => 0
+        ]);
+
+        return back()->with('status', 'Eje de trabajo eliminada con éxito');
     }
 }

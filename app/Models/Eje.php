@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Eje extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'eje',
+        'descripcion',
+        'estado'
+    ];
 }

@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Poblacion extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'poblacion',
+        'descripcion',
+        'estado'
+    ];
 }
