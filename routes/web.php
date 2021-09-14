@@ -8,6 +8,10 @@ use App\Http\Controllers\InstitucionController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\PoblacionController;
 use App\Http\Controllers\TipoController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\RolesController;
+use App\Http\Controllers\ReportusersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,8 +53,30 @@ Route::resource('poblaciones', PoblacionController::class)
 Route::resource('tipos', TipoController::class)
 ->middleware('auth');
 
+<<<<<<< HEAD
 Route::patch('/instituciones/poblacion/{institucione}', [InstitucionController::class, 'storepoblacion'])->name('institucion.poblacion')->middleware('auth');
 Route::patch('/instituciones/eje/{institucione}', [InstitucionController::class, 'storeeje'])->name('institucion.eje')->middleware('auth');
 Route::patch('/instituciones/cobertura/{institucione}', [InstitucionController::class, 'storecobertura'])->name('institucion.cobertura')->middleware('auth');
 Route::patch('/instituciones/poblacion/{institucione}/eliminar/{id_poblacion}', [InstitucionController::class, 'destroypoblacion'])->name('institucion.poblacion_eliminar')->middleware('auth');
 Route::patch('/instituciones/eje/{institucione}/eliminar/{id_eje}', [InstitucionController::class, 'destroyeje'])->name('institucion.eje_eliminar')->middleware('auth');
+
+Route::resource('usuarios', UsuariosController::class)
+->middleware('auth');
+
+Route::resource('roles', RolesController::class)
+->middleware('auth');
+
+
+Route::get('PDFusuarios','App\Http\Controllers\UsuariosController@imprimir')->name('descargarPDFusuarios');
+=======
+
+Route::resource('usuarios', UsuariosController::class)
+->middleware('auth');
+
+Route::resource('roles', RolesController::class)
+->middleware('auth');
+
+
+Route::get('PDFusuarios','App\Http\Controllers\UsuariosController@imprimir')->name('descargarPDFusuarios');
+ 
+>>>>>>> 8e5f485d1db469b70197662eb37860fd2285d8ff

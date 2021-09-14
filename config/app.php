@@ -162,6 +162,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+          // Laravel Framework Service Providers...
+        Barryvdh\DomPDF\ServiceProvider::class,
+
         /*
          * Package Service Providers...
          */
@@ -189,6 +192,8 @@ return [
     */
 
     'aliases' => [
+
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,

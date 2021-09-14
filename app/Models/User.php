@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'rol',
+        'estado',
     ];
 
     /**
@@ -41,4 +43,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function roles() {
+        return $this->belongsTo('App\Models\roles');
+    }
+
+    public function scopename($query, $nombre) {
+    	if ($nombre) {
+    		return $query->where('name','like',"%$nombre%");
+    	}
+    }
+
+    public function scoperol($query, $rol) {
+    	if ($rol) {
+    		return $query->where('rol','like',"%$rol%");
+    	}
+    }
 }
