@@ -8,6 +8,10 @@ use App\Http\Controllers\InstitucionController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\PoblacionController;
 use App\Http\Controllers\TipoController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\RolesController;
+use App\Http\Controllers\ReportusersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +52,14 @@ Route::resource('poblaciones', PoblacionController::class)
 
 Route::resource('tipos', TipoController::class)
 ->middleware('auth');
+
+
+Route::resource('usuarios', UsuariosController::class)
+->middleware('auth');
+
+Route::resource('roles', RolesController::class)
+->middleware('auth');
+
+
+Route::get('PDFusuarios','App\Http\Controllers\UsuariosController@imprimir')->name('descargarPDFusuarios');
+ 

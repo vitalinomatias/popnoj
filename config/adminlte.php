@@ -285,9 +285,11 @@ return [
             'icon' => 'fas fa-university',
         ],
         [
+           
             'text' => 'Usuarios',
-            'url'  => '/usuarios',
-            'icon' => 'fas fa-user',
+            'route'  => 'usuarios.index',
+          'icon' => 'fas fa-user',
+            
         ],
 
 
