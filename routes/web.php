@@ -53,7 +53,6 @@ Route::resource('poblaciones', PoblacionController::class)
 Route::resource('tipos', TipoController::class)
 ->middleware('auth');
 
-<<<<<<< HEAD
 Route::patch('/instituciones/poblacion/{institucione}', [InstitucionController::class, 'storepoblacion'])->name('institucion.poblacion')->middleware('auth');
 Route::patch('/instituciones/eje/{institucione}', [InstitucionController::class, 'storeeje'])->name('institucion.eje')->middleware('auth');
 Route::patch('/instituciones/cobertura/{institucione}', [InstitucionController::class, 'storecobertura'])->name('institucion.cobertura')->middleware('auth');
@@ -68,15 +67,3 @@ Route::resource('roles', RolesController::class)
 
 
 Route::get('PDFusuarios','App\Http\Controllers\UsuariosController@imprimir')->name('descargarPDFusuarios');
-=======
-
-Route::resource('usuarios', UsuariosController::class)
-->middleware('auth');
-
-Route::resource('roles', RolesController::class)
-->middleware('auth');
-
-
-Route::get('PDFusuarios','App\Http\Controllers\UsuariosController@imprimir')->name('descargarPDFusuarios');
- 
->>>>>>> 8e5f485d1db469b70197662eb37860fd2285d8ff
