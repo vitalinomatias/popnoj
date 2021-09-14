@@ -10,6 +10,7 @@
     <div class="card">
         <div class="card-header">
             <a href="{{ route('departamentos.create') }}" class="btn btn-sm btn-secondary">Crear Departamento</a>
+            <a href="{{ route('departamentos.imprimir') }}" class="btn btn-sm btn-success" target="_blank">Imprimir</a>
         </div>
         <div class="card-body">
             @if (session('status'))
@@ -23,6 +24,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
+                        <th>Pais</th>
                         <th colspan="2">&nbsp;</th>
                     </tr>
                 </thead>
@@ -32,6 +34,7 @@
                         {{-- <td width = "100px">{{ $pais->id }}</td> --}}
                         <td width = "100px">{{ $key }}</td>
                         <td>{{ $departamento->departamento }}</td>
+                        <td> {{$departamento->paisnombre['name']}} </td>
                         <td width ="10px">
                             <a href="{{ route('departamentos.edit', $departamento) }}" class="btn btn-primary btn-sm">
                                 Editar

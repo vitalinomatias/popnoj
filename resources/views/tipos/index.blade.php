@@ -10,6 +10,7 @@
     <div class="card">
         <div class="card-header">
             <a href="{{ route('tipos.create') }}" class="btn btn-sm btn-secondary">Crear nuevo tipo de institución</a>
+            <a href="{{ route('tipos.imprimir') }}" class="btn btn-sm btn-success" target="_blank">Imprimir</a>
         </div>
         <div class="card-body">
             @if (session('status'))

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tipo;
 use Illuminate\Http\Request;
+use PDF;
 
 class TipoController extends Controller
 {
@@ -96,5 +97,14 @@ class TipoController extends Controller
         ]);
 
         return back()->with('status', 'Tipo de institución eliminado con éxito');
+    }
+
+    public function imprimir()
+    {
+        $tipos = Tipo::where('estado', 1)->get();
+
+        $pdf = PDF::loadview('tipos.pdf', compact('tipos'));
+     
+        return $pdf->stream('Tipos_Institución.pdf');
     }
 }

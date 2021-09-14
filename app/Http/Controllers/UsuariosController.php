@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\roles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use PDF;
 
 class UsuariosController extends Controller
@@ -52,9 +53,7 @@ class UsuariosController extends Controller
 
     public function create()
     {
-        
-
-        $roles = roles::where('id', 1)->get();
+        $roles = roles::all();
         return view('usuarios.create', compact('roles'));
     }
 
@@ -72,8 +71,15 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
-       //acá se utiliza la funcion register del controlador RegisterController
-       
+       $usuario = User::create([
+            'name' => request('name'),
+            'email' => request('email'),
+            'password' => Hash::make(request('password')),
+            'rol' => request('rol'),
+            'estado' => 1
+        ]);
+
+        return redirect()->route('usuarios.index')->with('status', 'Usuario creado con éxito');
     }
 
     /**

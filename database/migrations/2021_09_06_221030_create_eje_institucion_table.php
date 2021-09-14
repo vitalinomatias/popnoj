@@ -16,8 +16,6 @@ class CreateEjeInstitucionTable extends Migration
         Schema::create('eje_institucion', function (Blueprint $table) {
             $table->id();
 
-            $table->string('estado');
-
             $table->unsignedBigInteger('id_institucion');
             $table->unsignedBigInteger('id_eje');
 

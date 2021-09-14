@@ -10,6 +10,7 @@
     <div class="card">
         <div class="card-header">
             <a href="{{ route('instituciones.create') }}" class="btn btn-sm btn-secondary">Crear nueva institución</a>
+            <a href="{{ route('instituciones.imprimir') }}" class="btn btn-sm btn-success" target="_blank">Imprimir</a>
         </div>
         <div class="card-body">
             @if (session('status'))
@@ -37,11 +38,13 @@
                                 &nbsp;&nbsp;Ver&nbsp;&nbsp;
                             </a>
                         </td>
-                        <td width ="10px">
-                            <a href="{{ route('instituciones.edit', $institucion) }}" class="btn btn-primary btn-sm">
-                                Editar
-                            </a>
-                        </td>
+                        @if(Auth::user( )->rol <>3)
+                            <td width ="10px">
+                                <a href="{{ route('instituciones.edit', $institucion) }}" class="btn btn-primary btn-sm">
+                                    Editar
+                                </a>
+                            </td>
+                        @endif
                         <td width ="10px">
                             <form action="{{ route('instituciones.destroy', $institucion) }}" method="POST">
                                 @csrf

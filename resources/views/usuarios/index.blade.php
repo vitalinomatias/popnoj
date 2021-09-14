@@ -13,7 +13,7 @@
     @if(Auth::user()->rol <>3)
         <div class="card-header">
         
-            <a href="{{ route('register') }}" class="btn btn-sm btn-secondary">Crear Usuario</a>
+            <a href="{{ route('usuarios.create') }}" class="btn btn-sm btn-secondary">Crear Usuario</a>
         </div>
              <nav class="navbar navbar-light float-right">
 
@@ -46,18 +46,16 @@
                         <th colspan="2">&nbsp;</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody>             
                     @foreach ($users as $key => $user)
                     <tr>
                         {{-- <td width = "100px">{{ $users->id }}</td> --}}
                         <td width = "100px">{{ $key }}</td>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        
-                        <td>{{ $user->rol }}</td>
+                        <td> {{$user->rolNombre['rol']}} </td>
                         <td width ="10px">
-                        @if(Auth::user()->rol <>3)
-                        
+                        @if(Auth::user()->rol <>3)                        
                             <a href="{{ route('usuarios.edit', $user) }}" class="btn btn-primary btn-sm">
                                 Editar
                             </a>
@@ -66,7 +64,7 @@
                         </td>
 
                         <td width ="10px">
-                        @if(Auth::user()->rol <>3)
+                        @if(Auth::user()->rol <> 3)
                             <form action="{{ route('usuarios.destroy', $user) }}" method="POST">
                             @csrf
                              @method('delete')

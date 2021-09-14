@@ -44,8 +44,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function roles() {
-        return $this->belongsTo('App\Models\roles');
+    public function rolNombre() {
+        return $this->belongsTo('App\Models\roles','rol');
     }
 
     public function scopename($query, $nombre) {

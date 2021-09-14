@@ -11,6 +11,7 @@ use App\Models\Poblacion;
 use App\Models\Tipo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class InstitucionController extends Controller
 {
@@ -187,10 +188,31 @@ class InstitucionController extends Controller
         return back()->with('status', 'Eje de trabajo eliminado con éxito');
     }
 
-    // public function consulta()
-    // {
-    //     $sql = 'SELECT * products';
-    //     $products = DB::select($sql); 
-    //     return ($products);
-    // }
+    public function imprimir()
+    {
+        $instituciones = Institucion::where('estado', 1)->get();
+
+        $pdf = PDF::loadview('instituciones.pdf', compact('instituciones'));
+     
+        return $pdf->stream('Instituciones.pdf');
+        
+    }
+
+    public function imprimirIndividual(Institucion $institucione)
+    {
+        $tipo = Tipo::find($institucione->tipo);
+        $poblaciones = Poblacion::where('estado', 1)->get();
+        $ejes = Eje::where('estado', 1)->get();
+        $paises = Pais::where('estado', 1)->get();
+        $departamentos = Departamento::where('estado', 1)->get();
+        $municipios = Municipio::where('estado', 1)->get();
+        
+
+        // return view('instituciones.show', compact('institucione','tipo', 'poblaciones', 'ejes', 'paises', 'departamentos', 'municipios'));
+
+        $pdf = PDF::loadview('instituciones.pdfIndivudual', compact('institucione','tipo', 'poblaciones', 'ejes', 'paises', 'departamentos', 'municipios'));
+     
+        return $pdf->stream($institucione->nombre_institucion . '.pdf');
+        
+    }
 }

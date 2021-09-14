@@ -6,6 +6,7 @@ use App\Models\Departamento;
 use App\Models\Pais;
 use Illuminate\Http\Request;
 use Illuminate\View\ViewName;
+use PDF;
 
 class DepartamentoController extends Controller
 {
@@ -104,5 +105,13 @@ class DepartamentoController extends Controller
         ]);
 
         return back()->with('status', 'Departamento eliminado con éxito');
+    }
+    public function imprimir()
+    {
+        $departamentos = Departamento::where('estado',1)->get();
+
+        $pdf = PDF::loadview('departamentos.pdf', compact('departamentos'));
+     
+        return $pdf->stream('Departamentos.pdf');
     }
 }

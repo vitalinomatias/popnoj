@@ -161,11 +161,7 @@
         </div>
 
         <div class="card-footer">
-        
-            
-            
-            
-        
+            <a href="{{ route('institucion.imprimir', $institucione) }}" class="btn  btn-success" target="_blank">Imprimir</a>
         </div>
     </div>
     @include('instituciones.modal.poblacion')

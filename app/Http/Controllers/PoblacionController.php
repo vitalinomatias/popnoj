@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Poblacion;
 use Illuminate\Http\Request;
+use PDF;
 
 class PoblacionController extends Controller
 {
@@ -99,5 +100,14 @@ class PoblacionController extends Controller
         ]);
 
         return back()->with('status', 'Población eliminada con éxito');
+    }
+
+    public function imprimir()
+    {
+        $poblaciones = Poblacion::where('estado', 1)->get();
+
+        $pdf = PDF::loadview('poblaciones.pdf', compact('poblaciones'));
+     
+        return $pdf->stream('Poblaciones.pdf');
     }
 }

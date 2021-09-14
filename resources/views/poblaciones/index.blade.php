@@ -10,6 +10,7 @@
     <div class="card">
         <div class="card-header">
             <a href="{{ route('poblaciones.create') }}" class="btn btn-sm btn-secondary">Crear nueva población</a>
+            <a href="{{ route('poblaciones.imprimir') }}" class="btn btn-sm btn-success" target="_blank">Imprimir</a>
         </div>
         <div class="card-body">
             @if (session('status'))

@@ -257,27 +257,33 @@ return [
         [
             'text' => 'Paises',
             'route' => 'paises.index',
+            'can' => 'administrador'
         ],
         [
             'text' => 'Departamentos',
             'route' => 'departamentos.index',
+            'can' => 'administrador'
         ],
         [
             'text' => 'Municipios',
             'route' => 'municipios.index',
+            'can' => 'administrador'
         ],
         [
             'text' => 'Población',
             'route' => 'poblaciones.index',
+            'can' => 'administrador'
         ],
 
         [
             'text' => 'Tipo de Institución',
             'route' => 'tipos.index',
+            'can' => 'administrador'
         ],
         [
             'text' => 'Ejes de trabajo',
             'route'  => 'ejes.index',
+            'can' => 'administrador'
         ],
         [
             'text' => 'Instituciones',
@@ -288,7 +294,8 @@ return [
            
             'text' => 'Usuarios',
             'route'  => 'usuarios.index',
-          'icon' => 'fas fa-user',
+            'icon' => 'fas fa-user',
+            'can' => 'administrador'
             
         ],
 

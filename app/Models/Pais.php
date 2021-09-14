@@ -16,7 +16,7 @@ class Pais extends Model
 
     // Relacion uno a muchos
     public function departamentos() {
-        return $this->hasMany('App\Models\Departamento');
+        return $this->hasMany('App\Models\Departamento','pais');
     }
 
     //muchos a muchos

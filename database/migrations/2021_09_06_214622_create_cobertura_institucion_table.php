@@ -16,8 +16,6 @@ class CreateCoberturaInstitucionTable extends Migration
         Schema::create('cobertura_institucion', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('estado');
-
             $table->unsignedBigInteger('id_institucion');
             $table->unsignedBigInteger('id_pais');
             $table->unsignedBigInteger('id_departamento');

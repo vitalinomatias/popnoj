@@ -3,7 +3,7 @@
 @section('title', 'Usuarios')
 
 @section('content_header')
-    <h1>Crear nuevo tipo de institución</h1>
+    <h1>Crear nuevo Usuario</h1>
 @stop
 
 @section('content')
@@ -16,15 +16,31 @@
             @endif
 
             <form 
-                action="{{ route('tipos.store') }}"
+                action="{{ route('usuarios.store') }}"
                 method="POST"
                 enctype="multipart/form-data"
             >
                 <div class="form-group" >
                     <label>Nombre *</label>
-                    <input type="text" name="tipo" class="form-control" required>
+                    <input type="text" name="name" class="form-control" required>
                 </div>
-                
+
+                <div class="form-group" >
+                    <label>Correo electronico *</label>
+                    <input type="text" name="email" class="form-control" required>
+                </div>
+                <div class="form-group" >
+                    <label>Contraseña *</label>
+                    <input type="text" name="password" class="form-control" required>
+                </div>
+                <div class="form-group" >
+                    <label>Rol *</label>
+                    <select name="rol" id="" class="form-control">
+                        @foreach ($roles as $rol)
+                            <option value="{{ $rol->id }}"> {{ $rol->rol }} </option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="form-group">
                     @csrf
                     <input type="submit" value="Guardar" class="btn btn-sm btn-primary">

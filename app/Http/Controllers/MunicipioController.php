@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Departamento;
 use App\Models\Municipio;
 use Illuminate\Http\Request;
+use PDF;
 
 class MunicipioController extends Controller
 {
@@ -100,5 +101,14 @@ class MunicipioController extends Controller
         ]);
 
         return back()->with('status', 'Municipio eliminado con éxito');
+    }
+
+    public function imprimir()
+    {
+        $municipios = Municipio::where('estado', 1)->get();
+
+        $pdf = PDF::loadview('municipios.pdf', compact('municipios'));
+     
+        return $pdf->stream('Municipios.pdf');
     }
 }

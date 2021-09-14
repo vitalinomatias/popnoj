@@ -10,6 +10,7 @@
     <div class="card">
         <div class="card-header">
             <a href="{{ route('paises.create') }}" class="btn btn-sm btn-secondary">Crear Pais</a>
+            <a href="{{ route('paises.imprimir') }}" class="btn btn-sm btn-success" target="_blank">Imprimir</a>
         </div>
         <div class="card-body">
             @if (session('status'))

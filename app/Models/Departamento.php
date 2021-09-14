@@ -16,8 +16,8 @@ class Departamento extends Model
     ];
 
     // Relacion uno a muchos (inversa)
-    public function pais() {
-        return $this->belongsTo('App\Models\Pais');   
+    public function paisnombre() {
+        return $this->belongsTo('App\Models\Pais','pais','id');   
     }
 
     // Relacion uno a muchos

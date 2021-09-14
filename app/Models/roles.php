@@ -12,7 +12,7 @@ class roles extends Model
         'rol',
     ];
 
-    public function instituciones() {
-        return $this->hasMany('App\Models\user');
-    }
+    public function usuarios() {
+        return $this->hasMany('App\Models\User','rol');
+    }    
 }

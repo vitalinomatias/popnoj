@@ -15,7 +15,6 @@ class CreatePoblacionInstitucionTable extends Migration
     {
         Schema::create('poblacion_institucion', function (Blueprint $table) {
             $table->id();
-            $table->string('estado');
 
             $table->unsignedBigInteger('id_institucion');
             $table->unsignedBigInteger('id_poblacion');

@@ -15,8 +15,8 @@ class Municipio extends Model
         'departamento'
     ];
 
-    public function departamento() {
-        return $this->belongsTo('App\Models\Departamento');   
+    public function departamentoNombre() {
+        return $this->belongsTo('App\Models\Departamento','departamento');   
     }
 
     //muchos a muchos

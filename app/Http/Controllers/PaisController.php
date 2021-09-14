@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PaisRequest;
 use App\Models\Pais;
 use Illuminate\Http\Request;
+use PDF;
 
 class PaisController extends Controller
 {
@@ -101,5 +102,14 @@ class PaisController extends Controller
         ]);
 
         return back()->with('status', 'Pais eliminado con éxito');
+    }
+
+    public function imprimir()
+    {
+        $paises = Pais::where('estado',1)->get();
+
+        $pdf = PDF::loadview('paises.pdf', compact('paises'));
+     
+        return $pdf->stream('paises.pdf');
     }
 }

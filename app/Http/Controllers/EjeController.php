@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Eje;
 use Illuminate\Http\Request;
+use PDF;
 
 class EjeController extends Controller
 {
@@ -15,7 +16,7 @@ class EjeController extends Controller
     public function index()
     {
         $ejes = Eje::where('estado',1)->get();
-        // dd($ejes);
+        
         return view('ejes.index',compact('ejes'));
     }
 
@@ -99,5 +100,14 @@ class EjeController extends Controller
         ]);
 
         return back()->with('status', 'Eje de trabajo eliminada con éxito');
+    }
+
+    public function imprimir()
+    {
+        $ejes = Eje::where('estado',1)->get();
+
+        $pdf = PDF::loadview('ejes.pdf', compact('ejes'));
+     
+        return $pdf->stream('Ejes_trabajo.pdf');
     }
 }

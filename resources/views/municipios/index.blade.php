@@ -10,6 +10,7 @@
     <div class="card">
         <div class="card-header">
             <a href="{{ route('municipios.create') }}" class="btn btn-sm btn-secondary">Crear Municipios</a>
+            <a href="{{ route('municipios.imprimir') }}" class="btn btn-sm btn-success" target="_blank">Imprimir</a>
         </div>
         <div class="card-body">
             @if (session('status'))
@@ -23,15 +24,16 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
+                        <th>Departamento</th>
                         <th colspan="2">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($municipios as $key => $municipio)
                     <tr>
-                        {{-- <td width = "100px">{{ $pais->id }}</td> --}}
                         <td width = "100px">{{ $key }}</td>
                         <td>{{ $municipio->municipio }}</td>
+                        <td> {{$municipio->departamentoNombre['departamento']}} </td>
                         <td width ="10px">
                             <a href="{{ route('municipios.edit', $municipio) }}" class="btn btn-primary btn-sm">
                                 Editar
