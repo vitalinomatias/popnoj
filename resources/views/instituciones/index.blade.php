@@ -23,7 +23,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th colspan="2">&nbsp;</th>
+                        <th colspan="3">&nbsp;</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +32,11 @@
                         {{-- <td width = "100px">{{ $pais->id }}</td> --}}
                         <td width = "100px">{{ $key }}</td>
                         <td>{{ $institucion->nombre_institucion }}</td>
+                        <td width ="10px">
+                            <a href="{{ route('instituciones.show', $institucion) }}" class="btn btn-success btn-sm">
+                                &nbsp;&nbsp;Ver&nbsp;&nbsp;
+                            </a>
+                        </td>
                         <td width ="10px">
                             <a href="{{ route('instituciones.edit', $institucion) }}" class="btn btn-primary btn-sm">
                                 Editar

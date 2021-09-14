@@ -18,4 +18,9 @@ class Municipio extends Model
     public function departamento() {
         return $this->belongsTo('App\Models\Departamento');   
     }
+
+    //muchos a muchos
+    public function instituciones() {
+        return $this->belongsToMany('App\Models\Institucion', 'cobertura_institucion', 'id_municipio', 'id_institucion');
+    }
 }

@@ -14,4 +14,8 @@ class Eje extends Model
         'descripcion',
         'estado'
     ];
+
+    public function instituciones() {
+        return $this->belongsToMany('App\Models\Institucion', 'eje_institucion', 'id_eje', 'id_institucion');
+    }
 }

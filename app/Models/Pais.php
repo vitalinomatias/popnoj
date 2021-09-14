@@ -18,4 +18,9 @@ class Pais extends Model
     public function departamentos() {
         return $this->hasMany('App\Models\Departamento');
     }
+
+    //muchos a muchos
+    public function instituciones() {
+        return $this->belongsToMany('App\Models\Institucion', 'cobertura_institucion', 'id_pais', 'id_institucion');
+    }
 }

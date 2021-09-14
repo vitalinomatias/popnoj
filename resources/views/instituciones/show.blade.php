@@ -100,13 +100,14 @@
                     <div class="card card-user">
                         <div class="card-header">Población</div>
                         <div class="card-body">
-                            <p class="description">
-                                poblacion 1<br>
-                                poblacion 2<br>
-                                poblacion 3<br>
-                                poblacion 4<br>
-                                poblacion 5<br>
-                            </p>
+                            <ul>
+                                @foreach ($institucione->poblaciones as $key => $poblacion)
+                                    <li> {{$poblacion['poblacion']}}</li>     
+                                
+                                @endforeach
+                            </ul>
+                            <a href="" data-toggle="modal" data-target="#ModalPoblacion" class="btn btn-sm btn-secondary">Agregar Población</a>
+                            <a href="" data-toggle="modal" data-target="#ModalPoblacionEliminar" class="btn btn-sm btn-danger">Eliminar Poblaciones</a>
                         </div>
                     </div>
                 </div>
@@ -114,13 +115,25 @@
                     <div class="card card-user">
                         <div class="card-header">Cobertura de trabajo</div>
                         <div class="card-body">
-                            <p class="description">
-                                Cobertura 1<br>
-                                Cobertura 2<br>
-                                Cobertura 3<br>
-                                Cobertura 4<br>
-                                Cobertura 5<br>
-                            </p>
+                            @foreach ($institucione->paises as $pais)
+                            {{$pais['name']}}<br>
+                            @endforeach
+                            &nbsp;<br>
+                            @foreach ($institucione->departamentos as $departamento)
+                                {{$departamento['departamento']}}<br>
+                            @endforeach
+
+                            &nbsp;<br>
+
+                            @foreach ($institucione->municipios as $municipio)
+                            @if ($municipio['id']==0)
+                                Todos los municipios <br>
+                            @endif
+                                {{$municipio['municipio']}}<br>
+                            @endforeach
+
+                            {{$institucione->municipios}}
+                            <a href="" data-toggle="modal" data-target="#ModalCobertura" class="btn btn-sm btn-secondary">Agregar Cobertura de la Institución</a>
                         </div>
                     </div>
                 </div>
@@ -131,13 +144,14 @@
                     <div class="card card-user">
                         <div class="card-header">Ejes de trabajo</div>
                         <div class="card-body">
-                            <p class="description">
-                                eje de trabajo 1<br>
-                                eje de trabajo 2<br>
-                                eje de trabajo 3<br>
-                                eje de trabajo 4<br>
-                                eje de trabajo 5<br>
-                            </p>
+                            <ul>
+                                @foreach ($institucione->ejes as $key => $eje)
+                                    <li> {{$eje['eje']}} <br></li>     
+                                
+                                @endforeach
+                            </ul>
+                            <a href="" data-toggle="modal" data-target="#ModalEje" class="btn btn-sm btn-secondary">Agregar Eje de trabajo</a>
+                            <a href="" data-toggle="modal" data-target="#ModalEjeEliminar" class="btn btn-sm btn-danger">Eliminar eje de trabajo</a>
                         </div>
                     </div>
                 </div>
@@ -148,10 +162,15 @@
 
         <div class="card-footer">
         
-            <a href="{{ route('instituciones.create') }}" class="btn btn-sm btn-primary">Agregar Población</a>
-            <a href="{{ route('instituciones.create') }}" class="btn btn-sm btn-primary">Agregar Eje de trabajo</a>
-            <a href="{{ route('instituciones.create') }}" class="btn btn-sm btn-primary">Agregar Cobertura de la Institución</a>
+            
+            
+            
         
         </div>
     </div>
+    @include('instituciones.modal.poblacion')
+    @include('instituciones.modal.eje')
+    @include('instituciones.modal.cobertura')
+    @include('instituciones.modal.poblacionesEliminar')
+    @include('instituciones.modal.ejeEliminar')
 @endsection

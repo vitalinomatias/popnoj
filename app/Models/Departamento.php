@@ -25,4 +25,9 @@ class Departamento extends Model
         return $this->hasMany('App\Models\Municipio');
     }
 
+    //muchos a muchos
+    public function instituciones() {
+        return $this->belongsToMany('App\Models\Institucion', 'cobertura_institucion', 'id_departamento', 'id_institucion');
+    }
+
 }

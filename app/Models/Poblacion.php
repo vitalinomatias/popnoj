@@ -16,6 +16,6 @@ class Poblacion extends Model
     ];
 
     public function instituciones() {
-        return $this->belongsToMany('App\Models\Institucion');
+        return $this->belongsToMany('App\Models\Institucion', 'poblacion_institucion', 'id_poblacion', 'id_institucion');
     }
 }
