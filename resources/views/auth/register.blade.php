@@ -1,12 +1,9 @@
-@extends('adminlte::page')
+@extends('layouts.app')
 
 @section('title', 'Usuarios')
 
 
 @section('content')
-
-    <li><a href="{{ url('popnoj/auth/login') }}">Login</a></li>                   
-
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

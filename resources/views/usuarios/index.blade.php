@@ -15,9 +15,9 @@
         
             <a href="{{ route('usuarios.create') }}" class="btn btn-sm btn-secondary">Crear Usuario</a>
         </div>
-             <nav class="navbar navbar-light float-right">
+             {{-- <nav class="navbar navbar-light float-right"> --}}
 
-             <form class="form-inline">
+             {{-- <form class="form-inline">
                  <input name="buscarpor" class="form-control mr-sm-2" type="search" placeholder="Buscar nombre" aria-label="Search">
                  <input name="buscarporrol" class="form-control mr-sm-2" type="search" placeholder="Buscar por Rol" aria-label="Search">
 
@@ -25,9 +25,9 @@
                         <a href="{{ route('descargarPDFusuarios') }}" class="btn btn-primary btn-sm">
                                 Reporte2
                             </a>
-             </form>  
+             </form>   --}}
               
-            </nav>
+            {{-- </nav> --}}
     @endif
         <div class="card-body">
             @if (session('status'))
@@ -35,7 +35,6 @@
                     {{ session('status') }}
                 </div>
             @endif
-
             <table class="table">
                 <thead>
                     <tr>
@@ -52,27 +51,37 @@
                         {{-- <td width = "100px">{{ $users->id }}</td> --}}
                         <td width = "100px">{{ $key }}</td>
                         <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->username }}</td>
                         <td> {{$user->rolNombre['rol']}} </td>
-                        <td width ="10px">
                         @if(Auth::user()->rol <>3)                        
+                        <td width ="10px">
+                            <a href="{{ route('usuarios.passwordEdit', $user) }}" class="btn btn-primary btn-sm">
+                                Contraseña
+                            </a>
+                        </td>
+                        @endif
+                        @if(Auth::user()->rol <>3)                        
+                        <td width ="10px">
                             <a href="{{ route('usuarios.edit', $user) }}" class="btn btn-primary btn-sm">
                                 Editar
                             </a>
-                        @endif
-                       
                         </td>
+                        @endif
 
-                        <td width ="10px">
                         @if(Auth::user()->rol <> 3)
+                        <td width ="10px">
                             <form action="{{ route('usuarios.destroy', $user) }}" method="POST">
                             @csrf
                              @method('delete')
                              <input type="submit" value="Eliminar" class="btn btn-sm btn-danger" unclick="return confirm ('desea eliminar?')">
-                            
-                             </form> 
-                        @endif
+                            </form> 
                         </td>
-
-                        @endforeach
+                        @endif
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
 @endsection

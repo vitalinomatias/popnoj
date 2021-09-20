@@ -106,8 +106,10 @@
                                 
                                 @endforeach
                             </ul>
+                            @if(Auth::user( )->rol <>3)
                             <a href="" data-toggle="modal" data-target="#ModalPoblacion" class="btn btn-sm btn-secondary">Agregar Población</a>
                             <a href="" data-toggle="modal" data-target="#ModalPoblacionEliminar" class="btn btn-sm btn-danger">Eliminar Poblaciones</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -115,25 +117,77 @@
                     <div class="card card-user">
                         <div class="card-header">Cobertura de trabajo</div>
                         <div class="card-body">
-                            @foreach ($institucione->paises as $pais)
-                            {{$pais['name']}}<br>
-                            @endforeach
-                            &nbsp;<br>
-                            @foreach ($institucione->departamentos as $departamento)
-                                {{$departamento['departamento']}}<br>
-                            @endforeach
-
-                            &nbsp;<br>
-
-                            @foreach ($institucione->municipios as $municipio)
-                            @if ($municipio['id']==0)
-                                Todos los municipios <br>
-                            @endif
-                                {{$municipio['municipio']}}<br>
-                            @endforeach
-
-                            {{$institucione->municipios}}
+                            <table class="table ">
+                                <thead>
+                                    <tr>
+                                        <th>Pais</th>
+                                        <th>Departamento</th>
+                                        <th>Municipio</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($paises_guardados as $pais)
+                                        <tr>
+                                            <td> {{$pais->name}} </td>
+                                            <td>
+                                                <table>
+                                                    <tbody>
+                                                        @foreach ($departamentos_guardados as $departamento)
+                                                            @if ($departamento->id_pais == $pais->id)
+                                                                <tr>
+                                                                    <td> {{$departamento->departamento}} </td>
+                                                                    <td>
+                                                                        <table>
+                                                                            <tbody>
+                                                                                @foreach ($municipios_guardados as $municipio)
+                                                                                    @if ($municipio->id_departamento == $departamento->id)
+                                                                                        <tr>
+                                                                                            <td>&nbsp;</td>
+                                                                                        </tr>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>                                                                
+                                                            @endif
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            <td>
+                                                <table>
+                                                    <tbody>
+                                                        @foreach ($departamentos_guardados as $departamento)
+                                                            @if ($departamento->id_pais == $pais->id)
+                                                                <tr>
+                                                                    <td>
+                                                                        <table>
+                                                                            <tbody>
+                                                                                @foreach ($municipios_guardados as $municipio)
+                                                                                    @if ($municipio->id_departamento == $departamento->id)
+                                                                                        <tr>
+                                                                                            <td> {{$municipio->municipio}} </td>
+                                                                                        </tr>
+                                                                                    @endif
+                                                                                @endforeach
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>                                                                
+                                                            @endif
+                                                        @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            @if(Auth::user( )->rol <>3)
                             <a href="" data-toggle="modal" data-target="#ModalCobertura" class="btn btn-sm btn-secondary">Agregar Cobertura de la Institución</a>
+                            <a href="" data-toggle="modal" data-target="#ModalCoberturaEliminar" class="btn btn-sm btn-danger">Eliminar Cobertura de la Institución</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -150,8 +204,10 @@
                                 
                                 @endforeach
                             </ul>
+                            @if(Auth::user( )->rol <>3)
                             <a href="" data-toggle="modal" data-target="#ModalEje" class="btn btn-sm btn-secondary">Agregar Eje de trabajo</a>
                             <a href="" data-toggle="modal" data-target="#ModalEjeEliminar" class="btn btn-sm btn-danger">Eliminar eje de trabajo</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -169,4 +225,5 @@
     @include('instituciones.modal.cobertura')
     @include('instituciones.modal.poblacionesEliminar')
     @include('instituciones.modal.ejeEliminar')
+    @include('instituciones.modal.coberturaEliminar')
 @endsection

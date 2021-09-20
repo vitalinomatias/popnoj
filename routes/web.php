@@ -58,6 +58,8 @@ Route::get('pdftipos', [TipoController::class, 'imprimir'])->name('tipos.imprimi
 
 // rutas para los usuarios
 Route::resource('usuarios', UsuariosController::class)->middleware('auth');
+Route::get('usuarios/{usuario}/password', [UsuariosController::class, 'passwordEdit'])->name('usuarios.passwordEdit')->middleware('auth');
+Route::put('usuarios/password/{usuario}', [UsuariosController::class, 'passwordUpdate'])->name('usuarios.passwordUpdate')->middleware('auth');
 
 // rutas para los roles de usuarios
 Route::resource('roles', RolesController::class)->middleware('auth');
@@ -69,8 +71,10 @@ Route::patch('/instituciones/eje/{institucione}', [InstitucionController::class,
 Route::patch('/instituciones/cobertura/{institucione}', [InstitucionController::class, 'storecobertura'])->name('institucion.cobertura')->middleware('auth');
 Route::patch('/instituciones/poblacion/{institucione}/eliminar/{id_poblacion}', [InstitucionController::class, 'destroypoblacion'])->name('institucion.poblacion_eliminar')->middleware('auth');
 Route::patch('/instituciones/eje/{institucione}/eliminar/{id_eje}', [InstitucionController::class, 'destroyeje'])->name('institucion.eje_eliminar')->middleware('auth');
+Route::patch('/instituciones/cobertura/eliminar/{id_cobertura}', [InstitucionController::class, 'destroycobertura'])->name('institucion.cobertura_eliminar')->middleware('auth');
 Route::get('pdfinstituciones', [InstitucionController::class, 'imprimir'])->name('instituciones.imprimir')->middleware('auth');
 Route::get('pdfinstituciones/{institucione}', [InstitucionController::class, 'imprimirIndividual'])->name('institucion.imprimir')->middleware('auth');
+Route::put('/instituciones/activar/{institucione}', [InstitucionController::class, 'activar'])->name('instituciones.activar')->middleware('auth');
 
 
 Route::get('PDFusuarios','App\Http\Controllers\UsuariosController@imprimir')->name('descargarPDFusuarios');

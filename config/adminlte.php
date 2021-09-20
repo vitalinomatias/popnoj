@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Pop</b>Noj',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -253,42 +253,48 @@ return [
         //     'label'       => 4,
         //     'label_color' => 'success',
         // ],
-        ['header' => 'Administrador'],
+        [   'header' => 'Administrador',
+            'can' => 'administrador'
+        ],
+        [   'header' => 'Operador',
+            'can' => 'operador'
+        ],
         [
             'text' => 'Paises',
             'route' => 'paises.index',
-            'can' => 'administrador'
+            'can' => ['administrador', 'operador'] 
         ],
         [
             'text' => 'Departamentos',
             'route' => 'departamentos.index',
-            'can' => 'administrador'
+            'can' => ['administrador', 'operador'] 
         ],
         [
             'text' => 'Municipios',
             'route' => 'municipios.index',
-            'can' => 'administrador'
+            'can' => ['administrador', 'operador'] 
         ],
         [
             'text' => 'Población',
             'route' => 'poblaciones.index',
-            'can' => 'administrador'
+            'can' => ['administrador', 'operador'] 
         ],
 
         [
             'text' => 'Tipo de Institución',
             'route' => 'tipos.index',
-            'can' => 'administrador'
+            'can' => ['administrador', 'operador'] 
         ],
         [
             'text' => 'Ejes de trabajo',
             'route'  => 'ejes.index',
-            'can' => 'administrador'
+            'can' => ['administrador', 'operador'] 
         ],
         [
             'text' => 'Instituciones',
             'route'  => 'instituciones.index',
             'icon' => 'fas fa-university',
+            'can' => ['administrador', 'operador','usuario'] 
         ],
         [
            

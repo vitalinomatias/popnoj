@@ -21,10 +21,10 @@ class CreateCoberturaInstitucionTable extends Migration
             $table->unsignedBigInteger('id_departamento');
             $table->unsignedBigInteger('id_municipio');
 
-            $table->foreign('id_institucion')->references('id')->on('institucions');
-            $table->foreign('id_pais')->references('id')->on('pais');
-            $table->foreign('id_departamento')->references('id')->on('departamentos');
-            $table->foreign('id_municipio')->references('id')->on('municipios');
+            // $table->foreign('id_institucion')->references('id')->on('institucions');
+            // $table->foreign('id_pais')->references('id')->on('pais');
+            // $table->foreign('id_departamento')->references('id')->on('departamentos');
+            // $table->foreign('id_municipio')->references('id')->on('municipios');
 
 
             $table->timestamps();

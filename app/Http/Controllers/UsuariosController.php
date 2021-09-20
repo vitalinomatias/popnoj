@@ -25,7 +25,9 @@ class UsuariosController extends Controller
         $rol = $request->get('buscarporrol');
     
         //$users = user::where('name','like',"%$rol%")->paginate(5);
-        $users = User::name($nombre)->rol($rol)->where('estado',1)->paginate(5);
+        // $users = User::name($nombre)->rol($rol)->where('estado',1)->paginate(5);
+
+        $users = User::where('estado', 1)->get();
         
         return view('usuarios.index', compact('users'));
     
@@ -33,16 +35,6 @@ class UsuariosController extends Controller
 
     public function imprimir()
     {
-       // $users = user::where('estado', 1)->get();
-        //return view('usuarios.index', compact('users'));
-        //dd();
-        //$roles=roles::;
-            
-        //$nombre = $request->get('buscarpor');
-        //$rol = $request->get('buscarporrol');
-    
-        //$users = user::where('name','like',"%$rol%")->paginate(5);
-        //$users = User::name($nombre)->rol($rol)->where('estado',1)->paginate(5);
         $users = User::where('estado', 1)->get();
        
         $pdf = PDF::loadview('pdf', compact('users'));
@@ -73,7 +65,7 @@ class UsuariosController extends Controller
     {
        $usuario = User::create([
             'name' => request('name'),
-            'email' => request('email'),
+            'username' => request('username'),
             'password' => Hash::make(request('password')),
             'rol' => request('rol'),
             'estado' => 1
@@ -90,7 +82,7 @@ class UsuariosController extends Controller
      */
     public function show(user $usuarios)
     {
-        return view('usuarios.show');
+         return view('usuarios.show');
     }
 
     /**
@@ -117,9 +109,8 @@ class UsuariosController extends Controller
         
         $usuario->update([
             'name' => request('name'),
-            'email'=>request('email'),
+            'username'=>request('username'),
             'rol' => request('rol'),
-
         ]);
         
         return redirect()->route('usuarios.index')->with('status', 'Usuario actualizado con éxito');
@@ -138,5 +129,20 @@ class UsuariosController extends Controller
         ]);
 
         return back()->with('status', 'Usuario eliminado con éxito');
+    }
+
+    public function passwordEdit(user $usuario)
+    {
+        return view('usuarios.password',compact('usuario'));
+    }
+
+    public function passwordUpdate(Request $request, User $usuario)
+    {
+        
+        $usuario->update([
+            'password' => Hash::make(request('password')),
+        ]);
+        
+        return redirect()->route('usuarios.index')->with('status', 'Usuario actualizado con éxito');
     }
 }

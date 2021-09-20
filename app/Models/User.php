@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'password',
         'rol',
@@ -59,4 +60,9 @@ class User extends Authenticatable
     		return $query->where('rol','like',"%$rol%");
     	}
     }
+
+    // public function adminlte_profile_url()
+    // {
+    //     return 'profile/username';
+    // }
 }

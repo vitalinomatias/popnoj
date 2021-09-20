@@ -26,8 +26,8 @@
                 </div>
 
                 <div class="form-group" >
-                    <label>Correo electronico *</label>
-                    <input type="text" name="email" class="form-control" required>
+                    <label>Nombre de usuario *</label>
+                    <input type="text" name="username" class="form-control" required>
                 </div>
                 <div class="form-group" >
                     <label>Contraseña *</label>

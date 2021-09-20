@@ -20,11 +20,153 @@ class InstitucionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    /*public function index()
     {
         $instituciones = Institucion::where('estado', 1)->get();
+
+        $paises = Pais::where('estado', 1)->get();
+        $departamentos = Departamento::where('estado', 1)->get();
+        $municipios = Municipio::where('estado', 1)->get();
+        $poblaciones = Poblacion::where('estado', 1)->get();
+        $ejes = Eje::where('estado', 1)->get();
+        $tipos = Tipo::where('estado',1)->get();
         
-        return view('instituciones.index', compact('instituciones'));
+        return view('instituciones.index', compact(
+            'instituciones', 
+            'paises',
+            'departamentos',
+            'municipios',
+            'poblaciones',
+            'ejes',
+            'tipos'
+        ));
+    }*/
+
+
+    public function index(Request $request)
+    {
+
+        function consulta($pais = null, $departamento = null, $municipio= null){
+            $instituciones = Institucion::join('cobertura_institucion', 'cobertura_institucion.id_institucion', '=', 'institucions.id')
+                                            ->where([
+                                                'cobertura_institucion.id_pais' => $pais,
+                                                'cobertura_institucion.id_departamento' => $departamento,
+                                                'cobertura_institucion.id_municipio' => $municipio,
+                                            ])
+                                            ->distinct()
+                                            ->get([
+                                                'institucions.id', 
+                                                'institucions.nombre_institucion', 
+                                                'institucions.director', 
+                                                'institucions.contacto',
+                                                'institucions.cargo', 
+                                                'institucions.telefono',
+                                                'institucions.correo', 
+                                                'institucions.direciion_local', 
+                                                'institucions.direciion_central', 
+                                                'institucions.estado', 
+                                                'institucions.tipo'
+                                            ]);
+        }
+
+        if (request('poblacion')){
+            // dd(request('poblacion'));
+            $instituciones = Institucion::join('poblacion_institucion', 'poblacion_institucion.id_institucion','=','institucions.id')
+                            ->where('poblacion_institucion.id_poblacion', request('poblacion'))
+                            ->get();
+            // dd($instituciones);       
+        } else if (request('tipo')) {
+            $instituciones = Institucion::where('tipo', request('tipo'))->get();
+        } else if (request('eje')) {
+            $instituciones = Institucion::join('eje_institucion', 'eje_institucion.id', '=', 'institucions.id')
+                            ->where('eje_institucion.id_eje', request('eje'))
+                            ->get();
+        } else if (request('pais') or request('departamento') or request('municipio')) {
+            if (request('pais') != 0 && request('departamento') == 0 && request('municipio') == 0) {
+                $instituciones = Institucion::join('cobertura_institucion', 'cobertura_institucion.id_institucion', '=', 'institucions.id')
+                                            ->where('cobertura_institucion.id_pais', request('pais'))
+                                            ->distinct()
+                                            ->get([
+                                                'institucions.id', 
+                                                'institucions.nombre_institucion', 
+                                                'institucions.director', 
+                                                'institucions.contacto',
+                                                'institucions.cargo', 
+                                                'institucions.telefono',
+                                                'institucions.correo', 
+                                                'institucions.direciion_local', 
+                                                'institucions.direciion_central', 
+                                                'institucions.estado', 
+                                                'institucions.tipo'
+                                            ]);
+            } else if (request('pais') != 0 && request('departamento') != 0 && request('municipio') == 0) {
+                $instituciones = Institucion::join('cobertura_institucion', 'cobertura_institucion.id_institucion', '=', 'institucions.id')
+                                            ->where([
+                                                'cobertura_institucion.id_pais' => request('pais'),
+                                                'cobertura_institucion.id_departamento' => request('departamento')
+                                                ])
+                                            ->distinct()
+                                            ->get([
+                                                'institucions.id', 
+                                                'institucions.nombre_institucion', 
+                                                'institucions.director', 
+                                                'institucions.contacto',
+                                                'institucions.cargo', 
+                                                'institucions.telefono',
+                                                'institucions.correo', 
+                                                'institucions.direciion_local', 
+                                                'institucions.direciion_central', 
+                                                'institucions.estado', 
+                                                'institucions.tipo'
+                                            ]);
+            } else if (request('pais') != 0 && request('departamento') != 0 && request('municipio') != 0) {
+                $instituciones = Institucion::join('cobertura_institucion', 'cobertura_institucion.id_institucion', '=', 'institucions.id')
+                                            ->where([
+                                                'cobertura_institucion.id_pais' => request('pais'),
+                                                'cobertura_institucion.id_departamento' => request('departamento'),
+                                                'cobertura_institucion.id_municipio' => request('municipio')
+                                                ])
+                                            ->distinct()
+                                            ->get([
+                                                'institucions.id', 
+                                                'institucions.nombre_institucion', 
+                                                'institucions.director', 
+                                                'institucions.contacto',
+                                                'institucions.cargo', 
+                                                'institucions.telefono',
+                                                'institucions.correo', 
+                                                'institucions.direciion_local', 
+                                                'institucions.direciion_central', 
+                                                'institucions.estado', 
+                                                'institucions.tipo'
+                                            ]);
+            }
+            
+        }
+        else {
+            $instituciones = Institucion::where('estado', 1)->get();
+        } 
+        
+
+        $paises = Pais::where('estado', 1)->get();
+        $departamentos = Departamento::where('estado', 1)->get();
+        $municipios = Municipio::where('estado', 1)->get();
+        $poblaciones = Poblacion::where('estado', 1)->get();
+        $ejes = Eje::where('estado', 1)->get();
+        $tipos = Tipo::where('estado',1)->get();
+
+        $eliminadas = Institucion::where('estado',0)->get();
+        
+        return view('instituciones.index', compact(
+            'instituciones', 
+            'paises',
+            'departamentos',
+            'municipios',
+            'poblaciones',
+            'ejes',
+            'tipos',
+            'eliminadas'
+        ));
     }
 
     /**
@@ -76,10 +218,36 @@ class InstitucionController extends Controller
         $paises = Pais::where('estado', 1)->get();
         $departamentos = Departamento::where('estado', 1)->get();
         $municipios = Municipio::where('estado', 1)->get();
-        
-        // dd($institucione->ejes);
 
-        return view('instituciones.show', compact('institucione','tipo', 'poblaciones', 'ejes', 'paises', 'departamentos', 'municipios'));
+        $paises_guardados = DB::table('pais')
+                            ->join('cobertura_institucion','cobertura_institucion.id_pais', '=', 'pais.id')
+                            ->where('cobertura_institucion.id_institucion', '=', $institucione->id)
+                            ->distinct()
+                            ->get(['pais.name','pais.id']);
+
+        $departamentos_guardados = DB::table('departamentos')
+                                    ->join('cobertura_institucion','cobertura_institucion.id_departamento', '=', 'departamentos.id')
+                                    ->where('cobertura_institucion.id_institucion', '=', $institucione->id)
+                                    ->distinct()
+                                    ->get(['departamentos.departamento','departamentos.id', 'cobertura_institucion.id_pais']);
+
+        $municipios_guardados = DB::table('municipios')
+                                ->join('cobertura_institucion','cobertura_institucion.id_municipio', '=', 'municipios.id')
+                                ->where('cobertura_institucion.id_institucion', '=', $institucione->id)
+                                ->get(['municipios.municipio','cobertura_institucion.id_departamento','cobertura_institucion.id']); 
+
+        return view('instituciones.show', compact(
+            'institucione',
+            'tipo', 
+            'poblaciones', 
+            'ejes', 
+            'paises', 
+            'departamentos', 
+            'municipios', 
+            'paises_guardados', 
+            'departamentos_guardados', 
+            'municipios_guardados'
+        ));
     }
 
     /**
@@ -152,20 +320,13 @@ class InstitucionController extends Controller
 
     public function storecobertura(Request $request, Institucion $institucione)
     {
-        $cobertura = Institucion::find($institucione->id);
 
-        $cobertura->paises()->attach(request('id_pais'), [
+        DB::table('cobertura_institucion')->insert([
+            'id_institucion' => $institucione->id, 
+            'id_pais' => request('id_pais'),
             'id_departamento' => request('id_departamento'),
             'id_municipio' => request('id_municipio')
         ]);
-
-        $consulta = DB::table('cobertura_institucion')->where([
-            'id_pais' => 1,
-            // 'id_departamento' =>1
-            ])->get();
-
-        // $instituciones = Institucion::where('estado', 1)->get();
-        // dd($consulta);
 
         return redirect()->route('instituciones.show',compact('institucione'))->with('status', 'Nueva población agregada con éxito');
     }
@@ -188,6 +349,17 @@ class InstitucionController extends Controller
         return back()->with('status', 'Eje de trabajo eliminado con éxito');
     }
 
+    public function destroycobertura($id_cobertura)
+    {
+
+        // dd($id_cobertura);
+        DB::table('cobertura_institucion')
+            ->where('id', '=', $id_cobertura)
+            ->delete(); 
+
+        return back()->with('status', 'Cobertura de trabajo eliminada con éxito');
+    }
+
     public function imprimir()
     {
         $instituciones = Institucion::where('estado', 1)->get();
@@ -206,13 +378,19 @@ class InstitucionController extends Controller
         $paises = Pais::where('estado', 1)->get();
         $departamentos = Departamento::where('estado', 1)->get();
         $municipios = Municipio::where('estado', 1)->get();
-        
-
-        // return view('instituciones.show', compact('institucione','tipo', 'poblaciones', 'ejes', 'paises', 'departamentos', 'municipios'));
 
         $pdf = PDF::loadview('instituciones.pdfIndivudual', compact('institucione','tipo', 'poblaciones', 'ejes', 'paises', 'departamentos', 'municipios'));
      
         return $pdf->stream($institucione->nombre_institucion . '.pdf');
         
+    }
+
+    public function activar(Institucion $institucione)
+    {
+        $institucione->update([
+            'estado' => 1
+        ]);
+
+        return back()->with('status', 'Insititución activada con éxito');
     }
 }

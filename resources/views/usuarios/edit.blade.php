@@ -21,19 +21,16 @@
                    <input type="text" name="name" class="form-control" required value="{{ old('name', $usuario->name) }}"> 
                 </div>
                 <div class="form-group">
-                    <label>Correo *</label>
-                   <input type="text" name="email" class="form-control" required value="{{ old('email', $usuario->email) }}"> 
+                    <label>Usuario *</label>
+                   <input type="text" name="username" class="form-control" required value="{{ old('username', $usuario->username) }}"> 
                 </div>
-
                 <div class="form-group">
                     <label>Rol *</label>
-                    <select name="rol" >
+                    <select name="rol" class="form-control">
                         @foreach ($roles as $rol)
                         <option value="{{$rol->id}}"{{$usuario->rol==$rol->id ? 'selected':''}}>{{$rol->rol}} </option>
-                        
                         @endforeach
                     </select>
-                    
                 </div>
                 
                 <div class="form-group">
