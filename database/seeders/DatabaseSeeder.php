@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => 'Administrador',
-            'username' => 'Administrador',
+            'usuario' => 'Administrador',
             'email' => 'administrador@administrador.com',
             'password' => bcrypt('administrador'),
             'rol' => 1,
@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'name' => 'usuario',
-            'username' => 'Usuario',
+            'usuario' => 'Usuario',
             'email' => 'usuario@usuario.com',
             'password' => bcrypt('usuario'),
             'rol' => 2,

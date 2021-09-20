@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\roles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Unique;
 use PDF;
 
 class UsuariosController extends Controller
@@ -20,7 +21,7 @@ class UsuariosController extends Controller
         //return view('usuarios.index', compact('users'));
         //dd();
         //$roles=roles::;
-        
+
         $nombre = $request->get('buscarpor');
         $rol = $request->get('buscarporrol');
     
@@ -63,9 +64,12 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'usuario' => 'unique:users'
+        ]);
        $usuario = User::create([
             'name' => request('name'),
-            'username' => request('username'),
+            'usuario' => request('usuario'),
             'password' => Hash::make(request('password')),
             'rol' => request('rol'),
             'estado' => 1
@@ -109,7 +113,7 @@ class UsuariosController extends Controller
         
         $usuario->update([
             'name' => request('name'),
-            'username'=>request('username'),
+            'usuario'=>request('usuario'),
             'rol' => request('rol'),
         ]);
         

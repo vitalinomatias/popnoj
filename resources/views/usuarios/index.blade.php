@@ -51,7 +51,7 @@
                         {{-- <td width = "100px">{{ $users->id }}</td> --}}
                         <td width = "100px">{{ $key }}</td>
                         <td>{{ $user->name }}</td>
-                        <td>{{ $user->username }}</td>
+                        <td>{{ $user->usuario }}</td>
                         <td> {{$user->rolNombre['rol']}} </td>
                         @if(Auth::user()->rol <>3)                        
                         <td width ="10px">
