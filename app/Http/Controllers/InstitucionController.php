@@ -199,6 +199,7 @@ class InstitucionController extends Controller
             'direciion_central' => request('direciion_central'),
             'estado' => 1,
             'tipo' => request('tipo'),
+            'user_id' => auth()->user()->id
         ]);
         
         return redirect()->route('instituciones.show',compact('institucione'))->with('status', 'Nueva institucion creada con éxito');
@@ -281,6 +282,7 @@ class InstitucionController extends Controller
             'direciion_local' => request('direciion_local'),
             'direciion_central' => request('direciion_central'),
             'tipo' => request('tipo'),
+            'user_id' => auth()->user()->id
         ]);
         
         // return redirect()->route('instituciones.index')->with('status', 'Institución actualizada con éxito');
@@ -296,7 +298,8 @@ class InstitucionController extends Controller
     public function destroy(Institucion $institucione)
     {
         $institucione->update([
-            'estado' => 0
+            'estado' => 0,
+            'user_id' => auth()->user()->id
         ]);
 
         return back()->with('status', 'Insititución eliminada con éxito');
@@ -378,8 +381,35 @@ class InstitucionController extends Controller
         $paises = Pais::where('estado', 1)->get();
         $departamentos = Departamento::where('estado', 1)->get();
         $municipios = Municipio::where('estado', 1)->get();
+        $paises_guardados = DB::table('pais')
+                            ->join('cobertura_institucion','cobertura_institucion.id_pais', '=', 'pais.id')
+                            ->where('cobertura_institucion.id_institucion', '=', $institucione->id)
+                            ->distinct()
+                            ->get(['pais.name','pais.id']);
 
-        $pdf = PDF::loadview('instituciones.pdfIndivudual', compact('institucione','tipo', 'poblaciones', 'ejes', 'paises', 'departamentos', 'municipios'));
+        $departamentos_guardados = DB::table('departamentos')
+                                    ->join('cobertura_institucion','cobertura_institucion.id_departamento', '=', 'departamentos.id')
+                                    ->where('cobertura_institucion.id_institucion', '=', $institucione->id)
+                                    ->distinct()
+                                    ->get(['departamentos.departamento','departamentos.id', 'cobertura_institucion.id_pais']);
+
+        $municipios_guardados = DB::table('municipios')
+                                ->join('cobertura_institucion','cobertura_institucion.id_municipio', '=', 'municipios.id')
+                                ->where('cobertura_institucion.id_institucion', '=', $institucione->id)
+                                ->get(['municipios.municipio','cobertura_institucion.id_departamento','cobertura_institucion.id']); 
+
+        $pdf = PDF::loadview('instituciones.pdfIndivudual', compact(
+            'institucione',
+            'tipo', 
+            'poblaciones', 
+            'ejes', 
+            'paises', 
+            'departamentos', 
+            'municipios', 
+            'paises_guardados', 
+            'departamentos_guardados', 
+            'municipios_guardados'
+        ));
      
         return $pdf->stream($institucione->nombre_institucion . '.pdf');
         
@@ -388,7 +418,8 @@ class InstitucionController extends Controller
     public function activar(Institucion $institucione)
     {
         $institucione->update([
-            'estado' => 1
+            'estado' => 1,
+            'user_id' => auth()->user()->id
         ]);
 
         return back()->with('status', 'Insititución activada con éxito');

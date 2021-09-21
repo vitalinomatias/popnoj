@@ -11,12 +11,18 @@ class Pais extends Model
 
     protected $fillable = [
         'name',
-        'estado'
+        'estado',
+        'user_id'
     ];
 
     // Relacion uno a muchos
     public function departamentos() {
         return $this->hasMany('App\Models\Departamento','pais');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
     }
 
     //muchos a muchos

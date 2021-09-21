@@ -17,8 +17,9 @@ class PaisController extends Controller
     public function index()
     {
         $paises = Pais::where('estado',1)->get();
+        $eliminados = Pais::where('estado', 0)->get();
         // dd($paises);
-        return view('paises.index', compact('paises'));
+        return view('paises.index', compact('paises', 'eliminados'));
     }
 
     /**
@@ -42,7 +43,8 @@ class PaisController extends Controller
         //guardar los datos
         $pais = Pais::create([
             'name' =>request('name'),
-            'estado' =>1
+            'estado' =>1,
+            'user_id' => auth()->user()->id
         ]);
         
         return redirect()->route('paises.index')->with('status', 'Pais creado con éxito');
@@ -83,7 +85,8 @@ class PaisController extends Controller
         //  $paise->update($request->all());
         $paise->update([
             'name' => request('name'),
-            'estado' =>1
+            'estado' =>1,
+            'user_id' => auth()->user()->id
         ]);
         
         return redirect()->route('paises.index')->with('status', 'Pais actualizado con éxito');
@@ -98,7 +101,8 @@ class PaisController extends Controller
     public function destroy(Pais $paise)
     {
         $paise->update([
-            'estado' => 0
+            'estado' => 0,
+            'user_id' => auth()->user()->id
         ]);
 
         return back()->with('status', 'Pais eliminado con éxito');
@@ -111,5 +115,15 @@ class PaisController extends Controller
         $pdf = PDF::loadview('paises.pdf', compact('paises'));
      
         return $pdf->stream('paises.pdf');
+    }
+
+    public function activar(Pais $paise)
+    {
+        $paise->update([
+            'estado' => 1,
+            'user_id' => auth()->user()->id
+        ]);
+
+        return back()->with('status', 'Pais activado con éxito');
     }
 }

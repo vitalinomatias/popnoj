@@ -56,5 +56,43 @@
                 </tbody>
             </table>
         </div>
+        @if (Auth::user( )->rol == 1)
+            <div class="card-footer">
+                <div>
+                    <label class="col-form-label">Municipios eliminadas</label>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Eliminado</th>
+                            <th colspan="1">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($eliminados as $key => $municipio)
+                        <tr>
+                            <td width = "100px">{{ $key }}</td>
+                            <td>{{ $municipio->municipio }}</td>
+                            <td> {{$municipio->user['usuario']}} </td>
+                            <td width ="10px">
+                                <form action="{{ route('municipios.activar', $municipio) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <input 
+                                        type="submit" 
+                                        value="Activar" 
+                                        class="btn btn-sm btn-danger"
+                                        onclick="return confirm('¿Desea activar el municipio?')"
+                                    >
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
     </div>
 @endsection

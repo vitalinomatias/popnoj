@@ -57,5 +57,43 @@
                 </tbody>
             </table>
         </div>
+        @if (Auth::user( )->rol == 1)
+            <div class="card-footer">
+                <div>
+                    <label class="col-form-label">Departamentos eliminadas</label>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Eliminado</th>
+                            <th colspan="1">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($eliminados as $key => $departamento)
+                        <tr>
+                            <td width = "100px">{{ $key }}</td>
+                            <td>{{ $departamento->departamento }}</td>
+                            <td> {{$departamento->user['usuario']}} </td>
+                            <td width ="10px">
+                                <form action="{{ route('departamentos.activar', $departamento) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <input 
+                                        type="submit" 
+                                        value="Activar" 
+                                        class="btn btn-sm btn-danger"
+                                        onclick="return confirm('¿Desea eliminar..?')"
+                                    >
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>            
+        @endif
     </div>
 @endsection

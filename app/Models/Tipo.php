@@ -11,10 +11,16 @@ class Tipo extends Model
 
     protected $fillable = [
         'tipo',
-        'estado'
+        'estado',
+        'user_id'
     ];
 
     public function instituciones() {
         return $this->hasMany('App\Models\institucion');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
     }
 }

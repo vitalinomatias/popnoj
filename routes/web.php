@@ -25,7 +25,7 @@ use App\Http\Controllers\ReportusersController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
@@ -35,26 +35,32 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // rutas para los paises
 Route::resource('paises', PaisController::class)->middleware('auth');
 Route::get('pdfpaises', [PaisController::class, 'imprimir'])->name('paises.imprimir')->middleware('auth');
+Route::put('/paises/activar/{paise}', [PaisController::class, 'activar'])->name('paises.activar')->middleware('auth');
 
 // rutas para departamentos
 Route::resource('departamentos', DepartamentoController::class)->middleware('auth');
 Route::get('pdfdepartamentos', [DepartamentoController::class, 'imprimir'])->name('departamentos.imprimir')->middleware('auth');
+Route::put('/departamentos/activar/{departamento}', [DepartamentoController::class, 'activar'])->name('departamentos.activar')->middleware('auth');
 
 // rutas para los ejes
 Route::resource('ejes', EjeController::class)->middleware('auth');
 Route::get('pdfejes', [EjeController::class, 'imprimir'])->name('ejes.imprimir')->middleware('auth');
+Route::put('/ejes/activar/{eje}', [EjeController::class, 'activar'])->name('ejes.activar')->middleware('auth');
 
 // rutas para los municipios
 Route::resource('municipios', MunicipioController::class)->middleware('auth');
 Route::get('pdfmunicipios', [MunicipioController::class, 'imprimir'])->name('municipios.imprimir')->middleware('auth');
+Route::put('/municipios/activar/{municipio}', [MunicipioController::class, 'activar'])->name('municipios.activar')->middleware('auth');
 
 // rutas para las poblaciones
 Route::resource('poblaciones', PoblacionController::class)->middleware('auth');
 Route::get('pdfpoblaciones', [PoblacionController::class, 'imprimir'])->name('poblaciones.imprimir')->middleware('auth');
+Route::put('/poblaciones/activar/{poblacione}', [PoblacionController::class, 'activar'])->name('poblaciones.activar')->middleware('auth');
 
 // rutas para los tipos de instituciones
 Route::resource('tipos', TipoController::class)->middleware('auth');
 Route::get('pdftipos', [TipoController::class, 'imprimir'])->name('tipos.imprimir')->middleware('auth');
+Route::put('/tipos/activar/{tipo}', [TipoController::class, 'activar'])->name('tipos.activar')->middleware('auth');
 
 // rutas para los usuarios
 Route::resource('usuarios', UsuariosController::class)->middleware('auth');

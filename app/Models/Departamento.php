@@ -12,12 +12,18 @@ class Departamento extends Model
     protected $fillable = [
         'departamento',
         'estado',
-        'pais'
+        'pais',
+        'user_id'
     ];
 
     // Relacion uno a muchos (inversa)
     public function paisnombre() {
         return $this->belongsTo('App\Models\Pais','pais','id');   
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
     }
 
     // Relacion uno a muchos

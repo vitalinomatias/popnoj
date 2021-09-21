@@ -12,10 +12,16 @@ class Eje extends Model
     protected $fillable = [
         'eje',
         'descripcion',
-        'estado'
+        'estado',
+        'user_id'
     ];
 
     public function instituciones() {
         return $this->belongsToMany('App\Models\Institucion', 'eje_institucion', 'id_eje', 'id_institucion');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
     }
 }

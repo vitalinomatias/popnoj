@@ -12,11 +12,17 @@ class Municipio extends Model
     protected $fillable = [
         'municipio',
         'estado',
-        'departamento'
+        'departamento',
+        'user_id'
     ];
 
     public function departamentoNombre() {
         return $this->belongsTo('App\Models\Departamento','departamento');   
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
     }
 
     //muchos a muchos

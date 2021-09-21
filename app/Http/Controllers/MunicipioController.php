@@ -17,7 +17,8 @@ class MunicipioController extends Controller
     public function index()
     {
         $municipios = Municipio::where('estado', 1)->get();
-        return view('municipios.index', compact('municipios'));
+        $eliminados = Municipio::where('estado', 0)->get();
+        return view('municipios.index', compact('municipios','eliminados'));
     }
 
     /**
@@ -42,7 +43,8 @@ class MunicipioController extends Controller
         $municipio = Municipio::create([
             'municipio' => request('municipio'),
             'estado' => 1,
-            'departamento' => request('departamento')
+            'departamento' => request('departamento'),
+            'user_id' => auth()->user()->id
         ]);
         
         return redirect()->route('municipios.index')->with('status', 'Municipio creado con éxito');
@@ -82,7 +84,8 @@ class MunicipioController extends Controller
     {
         $municipio->update([
             'municipio' => request('municipio'),
-            'departamento' => request('departamento')
+            'departamento' => request('departamento'),
+            'user_id' => auth()->user()->id
         ]);
         
         return redirect()->route('municipios.index')->with('status', 'Municipio actualizado con éxito');
@@ -97,7 +100,8 @@ class MunicipioController extends Controller
     public function destroy(Municipio $municipio)
     {
         $municipio->update([
-            'estado' => 0
+            'estado' => 0,
+            'user_id' => auth()->user()->id
         ]);
 
         return back()->with('status', 'Municipio eliminado con éxito');
@@ -110,5 +114,15 @@ class MunicipioController extends Controller
         $pdf = PDF::loadview('municipios.pdf', compact('municipios'));
      
         return $pdf->stream('Municipios.pdf');
+    }
+
+    public function activar(Municipio $municipio)
+    {
+        $municipio->update([
+            'estado' => 1,
+            'user_id' => auth()->user()->id
+        ]);
+
+        return back()->with('status', 'Municipio eliminado con éxito');
     }
 }

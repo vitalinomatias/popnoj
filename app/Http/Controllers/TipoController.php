@@ -16,7 +16,8 @@ class TipoController extends Controller
     public function index()
     {
         $tipos = Tipo::where('estado', 1)->get();
-        return view('tipos.index', compact('tipos'));
+        $eliminados = Tipo::where('estado', 0)->get();
+        return view('tipos.index', compact('tipos','eliminados'));
     }
 
     /**
@@ -39,7 +40,8 @@ class TipoController extends Controller
     {
         $tipo = Tipo::create([
             'tipo' =>request('tipo'),
-            'estado' =>1
+            'estado' =>1,
+            'user_id' => auth()->user()->id
         ]);
         
         return redirect()->route('tipos.index')->with('status', 'Tipo de institución creado con éxito');
@@ -78,6 +80,7 @@ class TipoController extends Controller
     {
         $tipo->update([
             'tipo' => request('tipo'),
+            'user_id' => auth()->user()->id
 
         ]);
         
@@ -93,7 +96,8 @@ class TipoController extends Controller
     public function destroy(Tipo $tipo)
     {
         $tipo->update([
-            'estado' => 0
+            'estado' => 0,
+            'user_id' => auth()->user()->id
         ]);
 
         return back()->with('status', 'Tipo de institución eliminado con éxito');
@@ -106,5 +110,15 @@ class TipoController extends Controller
         $pdf = PDF::loadview('tipos.pdf', compact('tipos'));
      
         return $pdf->stream('Tipos_Institución.pdf');
+    }
+
+    public function activar(Tipo $tipo)
+    {
+        $tipo->update([
+            'estado' => 1,
+            'user_id' => auth()->user()->id
+        ]);
+
+        return back()->with('status', 'Tipo de institución activada con éxito');
     }
 }

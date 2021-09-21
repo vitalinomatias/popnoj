@@ -12,10 +12,16 @@ class Poblacion extends Model
     protected $fillable = [
         'poblacion',
         'descripcion',
-        'estado'
+        'estado',
+        'user_id'
     ];
 
     public function instituciones() {
         return $this->belongsToMany('App\Models\Institucion', 'poblacion_institucion', 'id_poblacion', 'id_institucion');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
     }
 }

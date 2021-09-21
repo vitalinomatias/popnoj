@@ -55,5 +55,43 @@
                 </tbody>
             </table>
         </div>
+        @if (Auth::user( )->rol == 1)
+            <div class="card-footer">
+                <div>
+                    <label class="col-form-label">Poblaciones eliminadas</label>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Eliminado</th>
+                            <th colspan="1">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($eliminados as $key => $tipo)
+                        <tr>
+                            <td width = "100px">{{ $key }}</td>
+                            <td>{{ $tipo->tipo }}</td>
+                            <td> {{$tipo->user['usuario']}} </td>
+                            <td width ="10px">
+                                <form action="{{ route('tipos.activar', $tipo) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <input 
+                                        type="submit" 
+                                        value="Activar" 
+                                        class="btn btn-sm btn-danger"
+                                        onclick="return confirm('¿Desea activar el tipo de institución?')"
+                                    >
+                                </form>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endif
     </div>
 @endsection

@@ -130,6 +130,7 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
+                        <th>Eliminado</th>
                         <th colspan="1">&nbsp;</th>
                     </tr>
                 </thead>
@@ -138,6 +139,7 @@
                     <tr>
                         <td width = "100px">{{ $key }}</td>
                         <td>{{ $institucion->nombre_institucion }}</td>
+                        <td> {{$institucion->user['usuario']}} </td>
                         <td width ="10px">
                             <form action="{{ route('instituciones.activar', $institucion) }}" method="POST">
                                 @csrf

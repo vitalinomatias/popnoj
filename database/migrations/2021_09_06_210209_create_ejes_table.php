@@ -19,6 +19,9 @@ class CreateEjesTable extends Migration
             $table->string('eje');
             $table->text('descripcion');
             $table->integer('estado');
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             
             $table->timestamps();
         });

@@ -16,8 +16,9 @@ class EjeController extends Controller
     public function index()
     {
         $ejes = Eje::where('estado',1)->get();
+        $eliminados = Eje::where('estado', 0)->get();
         
-        return view('ejes.index',compact('ejes'));
+        return view('ejes.index',compact('ejes','eliminados'));
     }
 
     /**
@@ -41,7 +42,8 @@ class EjeController extends Controller
         $eje = Eje::create([
             'eje' =>request('eje'),
             'descripcion' => request('descripcion'),
-            'estado' => 1
+            'estado' => 1,
+            'user_id' => auth()->user()->id
         ]);
         
         return redirect()->route('ejes.index')->with('status', 'Eje de trabajo creado con éxito');
@@ -80,7 +82,8 @@ class EjeController extends Controller
     {
         $eje->update([
             'eje' => request('eje'),
-            'descripcion' => request('descripcion')
+            'descripcion' => request('descripcion'),
+            'user_id' => auth()->user()->id
 
         ]);
         
@@ -96,7 +99,8 @@ class EjeController extends Controller
     public function destroy(Eje $eje)
     {
         $eje->update([
-            'estado' => 0
+            'estado' => 0,
+            'user_id' => auth()->user()->id
         ]);
 
         return back()->with('status', 'Eje de trabajo eliminada con éxito');
@@ -109,5 +113,15 @@ class EjeController extends Controller
         $pdf = PDF::loadview('ejes.pdf', compact('ejes'));
      
         return $pdf->stream('Ejes_trabajo.pdf');
+    }
+
+    public function activar(Eje $eje)
+    {
+        $eje->update([
+            'estado' => 1,
+            'user_id' => auth()->user()->id
+        ]);
+
+        return back()->with('status', 'Eje de trabajo activado con éxito');
     }
 }

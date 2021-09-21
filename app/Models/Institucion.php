@@ -20,6 +20,7 @@ class Institucion extends Model
         'direciion_central',
         'estado',
         'tipo',
+        'user_id'
     ];
 
     // Relacion muchos a muchos
@@ -47,5 +48,10 @@ class Institucion extends Model
     //realcion uno a muchos
     public function tipo() {
         return $this->belongsTo('App\Models\Tipo');   
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
     }
 }

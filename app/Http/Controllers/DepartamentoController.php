@@ -18,8 +18,9 @@ class DepartamentoController extends Controller
     public function index()
     {
         $departamentos = Departamento::where('estado',1)->get();
+        $eliminados = Departamento::where('estado', 0)->get();
         
-        return view('departamentos.index', compact('departamentos'));
+        return view('departamentos.index', compact('departamentos','eliminados'));
     }
 
     /**
@@ -45,7 +46,8 @@ class DepartamentoController extends Controller
         $departamento = Departamento::create([
             'departamento' => request('departamento'),
             'estado' => 1,
-            'pais' => request('pais')
+            'pais' => request('pais'),
+            'user_id' => auth()->user()->id
         ]);
         
         return redirect()->route('departamentos.index')->with('status', 'Departamento creado con éxito');
@@ -86,7 +88,8 @@ class DepartamentoController extends Controller
         $departamento->update([
             'departamento' => request('departamento'),
             'estado' =>1,
-            'pais' => request('pais')
+            'pais' => request('pais'),
+            'user_id' => auth()->user()->id
         ]);
         
         return redirect()->route('departamentos.index')->with('status', 'Departamento actualizado con éxito');
@@ -101,7 +104,8 @@ class DepartamentoController extends Controller
     public function destroy(Departamento $departamento)
     {
         $departamento->update([
-            'estado' => 0
+            'estado' => 0,
+            'user_id' => auth()->user()->id
         ]);
 
         return back()->with('status', 'Departamento eliminado con éxito');
@@ -113,5 +117,15 @@ class DepartamentoController extends Controller
         $pdf = PDF::loadview('departamentos.pdf', compact('departamentos'));
      
         return $pdf->stream('Departamentos.pdf');
+    }
+
+    public function activar(Departamento $departamento)
+    {
+        $departamento->update([
+            'estado' => 1,
+            'user_id' => auth()->user()->id
+        ]);
+
+        return back()->with('status', 'Departamento eliminado con éxito');
     }
 }

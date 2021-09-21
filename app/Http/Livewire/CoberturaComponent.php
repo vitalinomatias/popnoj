@@ -24,12 +24,18 @@ class CoberturaComponent extends Component
 
     public function updatedselectedPais($idPais)
     {
-        $this->departamentos = Departamento::where('pais', $idPais)->get();
+        $this->departamentos = Departamento::where([
+            'pais' => $idPais,
+            'estado' => 1
+        ])->get();
     }
 
     public function updatedselectedDepartamento($idDepartamento)
     {
-        $this->municipios = Municipio::where('departamento', $idDepartamento)->get();
+        $this->municipios = Municipio::where([
+            'departamento' => $idDepartamento,
+            'estado' => 1
+        ])->get();
     }
 
 }

@@ -16,7 +16,8 @@ class PoblacionController extends Controller
     public function index()
     {
         $poblaciones = Poblacion::where('estado', 1)->get();
-        return view('poblaciones.index', compact('poblaciones'));
+        $eliminados = Poblacion::where('estado', 0)->get();
+        return view('poblaciones.index', compact('poblaciones', 'eliminados'));
     }
 
     /**
@@ -40,7 +41,8 @@ class PoblacionController extends Controller
         $poblacion = Poblacion::create([
             'poblacion' =>request('poblacion'),
             'descripcion' => request('descripcion'),
-            'estado' => 1
+            'estado' => 1,
+            'user_id' => auth()->user()->id
         ]);
         
         return redirect()->route('poblaciones.index')->with('status', 'Población creado con éxito');
@@ -80,8 +82,8 @@ class PoblacionController extends Controller
     {
         $poblacione->update([
             'poblacion' => request('poblacion'),
-            'descripcion' => request('descripcion')
-
+            'descripcion' => request('descripcion'),
+            'user_id' => auth()->user()->id
         ]);
         
         return redirect()->route('poblaciones.index')->with('status', 'Población actualizada con éxito');
@@ -96,7 +98,8 @@ class PoblacionController extends Controller
     public function destroy(Poblacion $poblacione)
     {
         $poblacione->update([
-            'estado' => 0
+            'estado' => 0,
+            'user_id' => auth()->user()->id
         ]);
 
         return back()->with('status', 'Población eliminada con éxito');
@@ -109,5 +112,15 @@ class PoblacionController extends Controller
         $pdf = PDF::loadview('poblaciones.pdf', compact('poblaciones'));
      
         return $pdf->stream('Poblaciones.pdf');
+    }
+
+    public function activar(Poblacion $poblacione)
+    {
+        $poblacione->update([
+            'estado' => 1,
+            'user_id' => auth()->user()->id
+        ]);
+
+        return back()->with('status', 'Población activada con éxito');
     }
 }
