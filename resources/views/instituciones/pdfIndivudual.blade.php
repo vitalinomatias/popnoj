@@ -144,7 +144,7 @@ footer {
         <div><a href="mailto:company@example.com">info@asociacionpopnoj.org</a></div>
       </div>
       <div id="logo">
-        <img src="logo.png">
+        <img src="{{ ('imagenes/logo.jpeg') }}">
       </div>
       <h1>{{$institucione->nombre_institucion}} </h1>
       </header>
