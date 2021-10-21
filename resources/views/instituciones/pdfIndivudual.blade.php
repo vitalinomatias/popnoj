@@ -1,104 +1,254 @@
-<div class="card">
-    <div class="card-header">
-        <h2> {{$institucione->nombre_institucion}} </h2>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-user">
-                    <div class="card-header">Director</div>
-                    <div class="card-body">
-                        <p class="description">{{$institucione->director}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card card-user">
-                    <div class="card-header">Contacto</div>
-                    <div class="card-body">
-                        <p class="description">{{$institucione->contacto}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>instituciones</title>
+  
+    <style>
+   .clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-user">
-                    <div class="card-header">Cargo</div>
-                    <div class="card-body">
-                        <p class="description">{{$institucione->cargo}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card card-user">
-                    <div class="card-header">Teléfono</div>
-                    <div class="card-body">
-                        <p class="description">{{$institucione->telefono}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+a {
+  color: #5D6975;
+  text-decoration: underline;
+}
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-user">
-                    <div class="card-header">Correo</div>
-                    <div class="card-body">
-                        <p class="description">{{$institucione->correo}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card card-user">
-                    <div class="card-header">Tipo</div>
-                    <div class="card-body">
-                        <p class="description">{{$tipo->tipo}}</p>
+body {
+  position: relative;
+  width: 15cm;  
+  height: 23.7cm; 
+  margin: 0 auto; 
+  color: #001028;
+  background: #FFFFFF; 
+  font-family: Arial, sans-serif; 
+  font-size: 12px; 
+  font-family: Arial;
+}
+
+header {
+  padding: 10px 0;
+  margin-bottom: 30px;
+}
+
+#logo {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+#logo img {
+  width: 90px;
+}
+
+h1 {
+  border-top: 1px solid  #5D6975;
+  border-bottom: 1px solid  #5D6975;
+  color: #5D6975;
+  font-size: 2.4em;
+  line-height: 1.4em;
+  font-weight: normal;
+  text-align: center;
+  margin: 0 0 20px 0;
+  background: url(dimension.png);
+}
+
+#project {
+  float: center;
+}
+
+#project span {
+  color: #5D6975;
+  text-align: right;
+  width: 52px;
+  margin-right: 10px;
+  display: inline-block;
+  font-size: 0.8em;
+}
+
+#company {
+  float: left;
+  text-align: left;
+}
+
+#project div,
+#company div {
+  white-space: nowrap;        
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin-bottom: 20px;
+}
+
+
+table tr:nth-child(2n-1) td {
+  background: #FAFAFA;
+}
+
+table th,
+table td {
+  text-align: center;
+}
+
+table th {  padding: 5px 20px;
+  color: #5D6975;
+  border-bottom: 1px solid #C1CED9;
+  white-space: nowrap;        
+  font-weight: normal;
+}
+
+table .service,
+table .desc {
+  text-align: left;
+}
+
+table td {
+  padding: 20px;
+  text-align: center;
+}
+
+
+
+
+
+footer {
+  color: #5D6975;
+  width: 100%;
+  height: 30px;
+  position: absolute;
+  bottom: 0;
+  border-top: 1px solid #C1CED9;
+  padding: 8px 0;
+  text-align: center;
+}
+</style>
+</head>
+
+
+
+
+<body>
+    <header class="clearfix">
+
+
+    <div id="company" class="clearfix">
+        <div>POPNOJ</div>
+        <div>3a Avenida 0-80, Colonia Bran, Zona 3, Ciudad de Guatemala<br /></div>
+        <div>Ciudad de Guatemala<br /></div>
+        <div>+502 2238 0905
+        +502 2251 5716</div>
+        <div><a href="mailto:company@example.com">info@asociacionpopnoj.org</a></div>
+      </div>
+      <div id="logo">
+        <img src="logo.png">
+      </div>
+      <h1>{{$institucione->nombre_institucion}} </h1>
+      </header>
+
+      <main>
+      <table>
+
+      <thead>
+                    <tr>
+                        <th>Dirección Central</th>
+                        <th>Dirección Local</th>
+                        <th>Telefono</th>
+                        <th>Correo</th>
+                        <th>Tipo de Institución</th>
+                    </tr>
+                </thead>     
+        
+        </thead>
+
+
+        <tbody>
+                    
+                    <tr>
+                     
+                        <td>{{ $institucione->direciion_central }}</td>
+                        <td>{{ $institucione->direciion_local }}</td>
+                        <td>{{ $institucione->telefono }}</td>
+                        <td>{{ $institucione->correo }}</td>
+                        <td>{{ $tipo->tipo }}</td>
+                       
                         
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </tr>
+                  
+                </tbody>
+                </table>
+     
+     </main>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-user">
-                    <div class="card-header">Dirección central</div>
-                    <div class="card-body">
-                        <p class="description">{{$institucione->direciion_central}}</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card card-user">
-                    <div class="card-header">Dirección Local</div>
-                    <div class="card-body">
-                        <p class="description">{{$institucione->direciion_local}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+     <main>
+      <table>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-user">
-                    <div class="card-header">Población</div>
-                    <div class="card-body">
-                        <ul>
-                            @foreach ($institucione->poblaciones as $key => $poblacion)
-                                <li> {{$poblacion['poblacion']}}</li>     
-                            
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card card-user">
-                    <div class="card-header">Cobertura de trabajo</div>
-                    <div class="card-body">
-                        <table class="table ">
+      <thead>
+                    <tr>
+                        <th>Director</th>
+                        <th>Contacto</th>
+                        <th>Cargo</th>
+                    </tr>
+                </thead>     
+                <tbody> 
+                    <tr>
+                        <td>{{ $institucione->director }}</td>
+                        <td>{{ $institucione->contacto }}</td>
+                        <td>{{ $institucione->cargo }}</td>
+                    </tr>  
+                </tbody>
+                </table>
+     </table>
+     </main>
+
+     <table>
+
+<thead>
+              <tr>
+                  <th>Poblacion</th>
+              </tr>
+          </thead>     
+  
+  </thead>
+
+
+  <tbody>
+              <tr>
+              
+                                <td>@foreach ($institucione->poblaciones as $key => $poblacion)
+                                {{$poblacion['poblacion']}},   
+                                @endforeach  </td>
+              </tr>
+          </tbody>
+          </table>
+
+          <table>
+
+<thead>
+              <tr>
+                  <th>Ejes de trabajo</th>
+              </tr>
+          </thead>     
+  
+  </thead>
+
+
+  <tbody>
+              <tr>
+              
+                                <td> @foreach ($institucione->ejes as $key => $eje)
+                                {{$eje['eje']}},   
+                                @endforeach  </td>
+              </tr>
+          </tbody>
+          </table>
+
+            
+                   
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>Pais</th>
@@ -170,23 +320,7 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card card-user">
-                    <div class="card-header">Ejes de trabajo</div>
-                    <div class="card-body">
-                        <ul>
-                            @foreach ($institucione->ejes as $key => $eje)
-                                <li> {{$eje['eje']}} <br></li>     
-                            
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>    
-    </div>
+        
 
-    <div class="card-footer">
-    </div>
-</div>
+ 
+   
